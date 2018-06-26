@@ -1,62 +1,153 @@
 @extends('layouts.app')
-
 @section('content')
+    <!-- Page Content -->
+    <div class="container">
 
-<div class="container">
-    <div class="col-md-10 col-md-offset-1">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h1>Post / Show #{{ $post->id }}</h1>
-            </div>
+      <div class="row">
 
-            <div class="panel-body">
-                <div class="well well-sm">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <a class="btn btn-link" href="{{ route('posts.index') }}"><i class="glyphicon glyphicon-backward"></i> Back</a>
-                        </div>
-                        <div class="col-md-6">
-                             <a class="btn btn-sm btn-warning pull-right" href="{{ route('posts.edit', $post->id) }}">
-                                <i class="glyphicon glyphicon-edit"></i> Edit
-                            </a>
-                        </div>
-                    </div>
+        <!-- Post Content Column -->
+        <div class="col-lg-8">
+
+          <!-- Title -->
+          <h1 class="mt-4">{{ $post->title }}</h1>
+
+          <!-- Author -->
+          <p class="lead">
+            by
+            <a href="/">{{ $post->user->name }}</a>
+          </p>
+
+          <hr>
+
+          <!-- Date/Time -->
+          <p>{{ $post->created_at->diffForHumans() }}</p>
+
+          <hr>
+
+          <!-- Preview Image -->
+          <img class="img-fluid rounded" width="700px" src="{{ $post->image }}" alt="{{ $post->title }}">
+
+          <hr>
+
+          <!-- Post Content -->
+          {{ $post->body }}
+
+          <hr>
+
+          <!-- Comments Form -->
+          <div class="card my-4">
+            <h5 class="card-header">Leave a Comment:</h5>
+            <div class="card-body">
+              <form>
+                <div class="form-group">
+                  <textarea class="form-control" rows="3"></textarea>
                 </div>
-
-                <label>Title</label>
-<p>
-	{{ $post->title }}
-</p> <label>Body</label>
-<p>
-	{{ $post->body }}
-</p> <label>User_id</label>
-<p>
-	{{ $post->user_id }}
-</p> <label>Category_id</label>
-<p>
-	{{ $post->category_id }}
-</p> <label>Reply_count</label>
-<p>
-	{{ $post->reply_count }}
-</p> <label>View_count</label>
-<p>
-	{{ $post->view_count }}
-</p> <label>Last_reply_user_id</label>
-<p>
-	{{ $post->last_reply_user_id }}
-</p> <label>Order</label>
-<p>
-	{{ $post->order }}
-</p> <label>Excerpt</label>
-<p>
-	{{ $post->excerpt }}
-</p> <label>Slug</label>
-<p>
-	{{ $post->slug }}
-</p>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
             </div>
-        </div>
-    </div>
-</div>
+          </div>
 
-@endsection
+          <!-- Single Comment -->
+          <div class="media mb-4">
+            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+            <div class="media-body">
+              <h5 class="mt-0">Commenter Name</h5>
+              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+            </div>
+          </div>
+
+          <!-- Comment with nested comments -->
+          <div class="media mb-4">
+            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+            <div class="media-body">
+              <h5 class="mt-0">Commenter Name</h5>
+              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+
+              <div class="media mt-4">
+                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                <div class="media-body">
+                  <h5 class="mt-0">Commenter Name</h5>
+                  Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                </div>
+              </div>
+
+              <div class="media mt-4">
+                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                <div class="media-body">
+                  <h5 class="mt-0">Commenter Name</h5>
+                  Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+
+          <!-- Search Widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Search</h5>
+            <div class="card-body">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary" type="button">Go!</button>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Categories Widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Categories</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-6">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="#">Web Design</a>
+                    </li>
+                    <li>
+                      <a href="#">HTML</a>
+                    </li>
+                    <li>
+                      <a href="#">Freebies</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-lg-6">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="#">JavaScript</a>
+                    </li>
+                    <li>
+                      <a href="#">CSS</a>
+                    </li>
+                    <li>
+                      <a href="#">Tutorials</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Side Widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Side Widget</h5>
+            <div class="card-body">
+              You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+    @stop
