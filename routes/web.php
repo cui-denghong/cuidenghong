@@ -13,10 +13,11 @@
 
 Auth::routes();
 
-Route::get('/', 'postsController@index')->name('home');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
 
+Route::get('/', 'PostsController@index')->name('home');
+Route::resource('categories', 'CategoriesController', ['only' => [ 'show']]);
 Route::resource('posts', 'PostsController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
